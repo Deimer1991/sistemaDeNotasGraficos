@@ -266,4 +266,8 @@ def generar_todos_reportes(datos):
     print("\n" + "█"*80)
     print("█ TODOS LOS REPORTES HAN SIDO GENERADOS EXITOSAMENTE".ljust(79) + "█")
     print("█"*80)
+<<<<<<< HEAD
     print(f"\n📁 Ubicación: {obtener_ruta_processed()}\n")
+=======
+    print(f"\n📁 Ubicación: {obtener_ruta_processed()}\n")
+>>>>>>> reportes
