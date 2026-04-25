@@ -1,0 +1,77 @@
+================================================================================
+  REPORTE DE CALIDAD DE DATOS
+================================================================================
+
+
+======================================================================
+ANÁLISIS DE CALIDAD - ESTUDIANTES
+======================================================================
+
+📌 VALORES FALTANTES:
+  - correo: 5 (5.0%)
+  - token_registro: 65 (65.0%)
+  - token_recuperacion: 85 (85.0%)
+  - expiracion_token_recuperacion: 100 (100.0%)
+  - foto: 100 (100.0%)
+
+📧 EMAILS INVÁLIDOS: 5
+   Ejemplos: [nan, nan, nan]
+
+⚠️  ESTUDIANTES NO ACTIVOS: 0
+
+✅ TOTAL ESTUDIANTES: 100
+
+======================================================================
+ANÁLISIS DE CALIDAD - PROFESORES
+======================================================================
+
+📌 VALORES FALTANTES:
+  - documento: 1 (5.0%)
+  - correo: 4 (20.0%)
+  - numero_celular: 2 (10.0%)
+  - token_registro: 19 (95.0%)
+  - token_recuperacion: 19 (95.0%)
+  - expiracion_token_recuperacion: 20 (100.0%)
+  - especializacion: 2 (10.0%)
+  - foto: 19 (95.0%)
+
+📧 PROFESORES SIN EMAIL VÁLIDO: 5
+   Nombres: ['Prof. Roberto', 'Dr. Andrés', 'Dra. Sofia', 'Dra. Pedro', 'Dr. Ricardo']
+
+📱 PROFESORES SIN CELULAR VÁLIDO: 20
+   Nombres: ['Dr. Elena', 'Prof. Roberto', 'Dra. Laura', 'Dr. Andrés', 'Prof. Camila', 'Dr. Felipe', 'Dra. Sofia', 'Prof. Diego', 'Dr. Juan', 'Dra. Valentina', 'Prof. Mateo', 'Dra. Lucia', 'Dr. Daniel', 'Prof. Ana', 'Dra. Pedro', 'Dr. Natalia', 'Prof. Jorge', 'Dra. Daniela', 'Dr. Ricardo', 'Prof. Paola']
+
+⚠️  PROFESORES INACTIVOS: 2
+   Nombres: ['Dr. Felipe', 'Dr. Ricardo']
+
+✅ TOTAL PROFESORES: 20
+
+======================================================================
+ANÁLISIS DE CALIDAD - GRUPOS
+======================================================================
+
+⚠️  GRUPOS CON MATERIA INVÁLIDA: 0
+
+⚠️  GRUPOS CON PROFESOR INVÁLIDO: 0
+
+✅ TOTAL GRUPOS: 20
+
+======================================================================
+ANÁLISIS DE CALIDAD - MATRÍCULAS
+======================================================================
+
+⚠️  MATRÍCULAS CON GRUPO INVÁLIDO: 0
+
+⚠️  MATRÍCULAS CON ESTUDIANTE INVÁLIDO: 0
+
+✅ TOTAL MATRÍCULAS: 150
+
+======================================================================
+ANÁLISIS DE CALIDAD - CALIFICACIONES
+======================================================================
+
+⚠️  CALIFICACIONES CON MATRÍCULA INVÁLIDA: 0
+
+⚠️  NOTAS FUERA DE RANGO (0-5): 0
+
+✅ TOTAL CALIFICACIONES: 200
