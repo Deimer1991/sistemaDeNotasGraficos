@@ -1,8 +1,3 @@
-"""
-Módulo de limpieza y validación de datos.
-Responsable de detectar inconsistencias, valores faltantes y problemas de calidad.
-"""
-
 import pandas as pd
 import re
 
@@ -33,21 +28,21 @@ def reporte_calidad_estudiantes(df_estudiantes):
     
     # Valores faltantes
     faltantes = df_estudiantes.isnull().sum()
-    print(f"\n📌 VALORES FALTANTES:")
+    print(f"\n VALORES FALTANTES:")
     for col in faltantes[faltantes > 0].index:
         print(f"  - {col}: {faltantes[col]} ({faltantes[col]/total*100:.1f}%)")
     
     # Emails inválidos
     emails_invalidos = df_estudiantes[~df_estudiantes['correo'].apply(validar_email)]
-    print(f"\n📧 EMAILS INVÁLIDOS: {len(emails_invalidos)}")
+    print(f"\n EMAILS INVÁLIDOS: {len(emails_invalidos)}")
     if len(emails_invalidos) > 0:
         print(f"   Ejemplos: {emails_invalidos['correo'].head(3).tolist()}")
     
     # Estados no ACTIVO
     estados_no_activos = df_estudiantes[df_estudiantes['estado'] != 'ACTIVO']
-    print(f"\n⚠️  ESTUDIANTES NO ACTIVOS: {len(estados_no_activos)}")
+    print(f"\n  ESTUDIANTES NO ACTIVOS: {len(estados_no_activos)}")
     
-    print(f"\n✅ TOTAL ESTUDIANTES: {total}")
+    print(f"\n TOTAL ESTUDIANTES: {total}")
 
 
 def reporte_calidad_profesores(df_profesores):
@@ -60,13 +55,13 @@ def reporte_calidad_profesores(df_profesores):
     
     # Valores faltantes
     faltantes = df_profesores.isnull().sum()
-    print(f"\n📌 VALORES FALTANTES:")
+    print(f"\n VALORES FALTANTES:")
     for col in faltantes[faltantes > 0].index:
         print(f"  - {col}: {faltantes[col]} ({faltantes[col]/total*100:.1f}%)")
     
     # Profesores sin email
     sin_email = df_profesores[~df_profesores['correo'].apply(validar_email)]
-    print(f"\n📧 PROFESORES SIN EMAIL VÁLIDO: {len(sin_email)}")
+    print(f"\n PROFESORES SIN EMAIL VÁLIDO: {len(sin_email)}")
     if len(sin_email) > 0:
         print(f"   Nombres: {sin_email['nombres'].tolist()}")
     
@@ -78,11 +73,11 @@ def reporte_calidad_profesores(df_profesores):
     
     # Estados inactivos
     inactivos = df_profesores[df_profesores['estado'] == 'INACTIVO']
-    print(f"\n⚠️  PROFESORES INACTIVOS: {len(inactivos)}")
+    print(f"\n  PROFESORES INACTIVOS: {len(inactivos)}")
     if len(inactivos) > 0:
         print(f"   Nombres: {inactivos['nombres'].tolist()}")
     
-    print(f"\n✅ TOTAL PROFESORES: {total}")
+    print(f"\n TOTAL PROFESORES: {total}")
 
 
 def reporte_calidad_grupos(df_grupos, df_materias, df_profesores):
@@ -98,12 +93,12 @@ def reporte_calidad_grupos(df_grupos, df_materias, df_profesores):
     profesores_ids = set(df_profesores['id'].values)
     
     grupos_sin_materia = df_grupos[~df_grupos['materia_id'].isin(materias_ids)]
-    print(f"\n⚠️  GRUPOS CON MATERIA INVÁLIDA: {len(grupos_sin_materia)}")
+    print(f"\n  GRUPOS CON MATERIA INVÁLIDA: {len(grupos_sin_materia)}")
     
     grupos_sin_profesor = df_grupos[~df_grupos['profesor_id'].isin(profesores_ids)]
-    print(f"\n⚠️  GRUPOS CON PROFESOR INVÁLIDO: {len(grupos_sin_profesor)}")
+    print(f"\n  GRUPOS CON PROFESOR INVÁLIDO: {len(grupos_sin_profesor)}")
     
-    print(f"\n✅ TOTAL GRUPOS: {total}")
+    print(f"\n TOTAL GRUPOS: {total}")
 
 
 def reporte_calidad_matriculas(df_matriculas, df_grupos, df_estudiantes):
@@ -119,12 +114,12 @@ def reporte_calidad_matriculas(df_matriculas, df_grupos, df_estudiantes):
     estudiantes_ids = set(df_estudiantes['id'].values)
     
     matriculas_sin_grupo = df_matriculas[~df_matriculas['grupo_id'].isin(grupos_ids)]
-    print(f"\n⚠️  MATRÍCULAS CON GRUPO INVÁLIDO: {len(matriculas_sin_grupo)}")
+    print(f"\n  MATRÍCULAS CON GRUPO INVÁLIDO: {len(matriculas_sin_grupo)}")
     
     matriculas_sin_estudiante = df_matriculas[~df_matriculas['estudiante_id'].isin(estudiantes_ids)]
-    print(f"\n⚠️  MATRÍCULAS CON ESTUDIANTE INVÁLIDO: {len(matriculas_sin_estudiante)}")
+    print(f"\n  MATRÍCULAS CON ESTUDIANTE INVÁLIDO: {len(matriculas_sin_estudiante)}")
     
-    print(f"\n✅ TOTAL MATRÍCULAS: {total}")
+    print(f"\n TOTAL MATRÍCULAS: {total}")
 
 
 def reporte_calidad_calificaciones(df_calificaciones, df_matriculas):
@@ -139,20 +134,20 @@ def reporte_calidad_calificaciones(df_calificaciones, df_matriculas):
     matriculas_ids = set(df_matriculas['id'].values)
     
     calificaciones_sin_matricula = df_calificaciones[~df_calificaciones['matricula_id'].isin(matriculas_ids)]
-    print(f"\n⚠️  CALIFICACIONES CON MATRÍCULA INVÁLIDA: {len(calificaciones_sin_matricula)}")
+    print(f"\n  CALIFICACIONES CON MATRÍCULA INVÁLIDA: {len(calificaciones_sin_matricula)}")
     
     # Notas fuera de rango (0-5)
     notas_fuera_rango = df_calificaciones[(df_calificaciones['nota'] < 0) | (df_calificaciones['nota'] > 5)]
-    print(f"\n⚠️  NOTAS FUERA DE RANGO (0-5): {len(notas_fuera_rango)}")
+    print(f"\n NOTAS FUERA DE RANGO (0-5): {len(notas_fuera_rango)}")
     
-    print(f"\n✅ TOTAL CALIFICACIONES: {total}")
+    print(f"\n TOTAL CALIFICACIONES: {total}")
 
 
 def generar_reporte_completo_calidad(datos):
     """Genera un reporte completo de calidad de todos los datos."""
-    print("\n" + "🔍 "*20)
+    print("\n" + " "*20)
     print("REPORTE GENERAL DE CALIDAD DE DATOS")
-    print("🔍 "*20)
+    print(" "*20)
     
     reporte_calidad_estudiantes(datos['estudiantes'])
     reporte_calidad_profesores(datos['profesores'])
