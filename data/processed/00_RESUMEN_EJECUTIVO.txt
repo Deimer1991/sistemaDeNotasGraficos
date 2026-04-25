@@ -1,0 +1,24 @@
+================================================================================
+  RESUMEN EJECUTIVO
+================================================================================
+
+MÉTRICAS GENERALES DEL SISTEMA
+--------------------------------------------------------------------------------
+  Total Estudiantes: 100
+  Total Profesores: 20
+  Total Programas: 5
+  Total Materias: 10
+  Total Grupos: 20
+  Total Matriculas: 150
+  Total Calificaciones: 200
+
+--------------------------------------------------------------------------------
+
+ARCHIVOS GENERADOS:
+  - 01_DESEMPEÑO_ACADÉMICO.txt
+  - 02_DISTRIBUCIÓN.txt
+  - 03_PROFESORES.txt
+  - 04_CALIDAD_DATOS.txt
+  - RESUMEN_EJECUTIVO.txt
+
+Archivos CSV complementarios en data/processed/
