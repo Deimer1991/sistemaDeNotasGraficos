@@ -1,8 +1,3 @@
-"""
-Módulo de generación de reportes.
-Genera reportes independientes en archivos CSV y TXT en data/processed/
-"""
-
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
