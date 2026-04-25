@@ -52,3 +52,21 @@ def promedio_por_grupo(df_calificaciones, df_matriculas, df_grupos, df_materias)
     promedio = cal_with_grup.groupby(['nombre', 'semestre'])[['nota']].agg(['mean', 'count']).round(2)
     promedio.columns = ['promedio', 'cantidad_calificaciones']
     return promedio.sort_values('promedio', ascending=False)
+
+
+def ranking_estudiantes(df_calificaciones, df_matriculas, df_estudiantes):
+    """Genera ranking de mejores y peores estudiantes."""
+    promedio = promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes)
+    
+    ranking = {
+        'mejores': promedio.head(5),
+        'peores': promedio.tail(5)
+    }
+    return ranking
+
+
+def estudiantes_bajo_desempeño(df_calificaciones, df_matriculas, df_estudiantes, umbral=3.0):
+    """Identifica estudiantes con desempeño bajo (promedio < umbral)."""
+    promedio = promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes)
+    bajo_desempeño = promedio[promedio['promedio'] < umbral]
+    return bajo_desempeño.sort_values('promedio')
