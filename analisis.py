@@ -71,7 +71,10 @@ def estudiantes_bajo_desempeño(df_calificaciones, df_matriculas, df_estudiantes
     bajo_desempeño = promedio[promedio['promedio'] < umbral]
     return bajo_desempeño.sort_values('promedio')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/analisis
 # ============================================================================
 # 2. ANÁLISIS DE DISTRIBUCIÓN
 # ============================================================================
@@ -183,4 +186,8 @@ def resumen_estadistico(datos):
         'total_matriculas': len(datos['matriculas']),
         'total_calificaciones': len(datos['calificaciones'])
     }
+<<<<<<< HEAD
     return pd.Series(resumen)
+=======
+    return pd.Series(resumen)
+>>>>>>> origin/analisis

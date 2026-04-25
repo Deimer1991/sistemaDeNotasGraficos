@@ -1,8 +1,3 @@
-"""
-Módulo de generación de reportes.
-Genera reportes independientes en archivos CSV y TXT en data/processed/
-"""
-
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
@@ -266,8 +261,8 @@ def generar_todos_reportes(datos):
     print("\n" + "█"*80)
     print("█ TODOS LOS REPORTES HAN SIDO GENERADOS EXITOSAMENTE".ljust(79) + "█")
     print("█"*80)
-<<<<<<< HEAD
+<<<<<<<<< Temporary merge branch 1
     print(f"\n📁 Ubicación: {obtener_ruta_processed()}\n")
-=======
+=========
     print(f"\n📁 Ubicación: {obtener_ruta_processed()}\n")
->>>>>>> reportes
+>>>>>>>>> Temporary merge branch 2
