@@ -1,0 +1,31 @@
+================================================================================
+  REPORTE DE DISTRIBUCIÓN
+================================================================================
+
+1. ESTUDIANTES POR PROGRAMA ACADÉMICO
+--------------------------------------------------------------------------------
+  nombre  cantidad_estudiantes
+sistemas                     3
+
+2. ESTUDIANTES POR SEMESTRE
+--------------------------------------------------------------------------------
+semestre  cantidad_estudiantes
+  2026-1                     2
+
+3. OCUPACIÓN DE GRUPOS
+--------------------------------------------------------------------------------
+  nombre semestre  estudiantes_reales  cupo_maximo  porcentaje_ocupacion
+GrupoUno   2026-1                   1           35                   2.9
+GrupoDos   2026-1                   1           35                   2.9
+
+4. MATERIAS MÁS DEMANDADAS
+--------------------------------------------------------------------------------
+    nombre  cantidad_estudiantes
+Frontend 1                     1
+ backend 1                     1
+
+5. ESTUDIANTES POR MODALIDAD
+--------------------------------------------------------------------------------
+ modalidad  cantidad_estudiantes
+Presencial                     3
+

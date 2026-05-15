@@ -1,0 +1,23 @@
+================================================================================
+  REPORTE DE ANÁLISIS DE PROFESORES
+================================================================================
+
+1. CARGA ACADÉMICA (GRUPOS POR PROFESOR)
+--------------------------------------------------------------------------------
+         nombres       apellidos  cantidad_grupos
+Santiago Esteban Merlos Espinosa                2
+
+2. CANTIDAD DE ESTUDIANTES POR PROFESOR
+--------------------------------------------------------------------------------
+         nombres       apellidos  cantidad_estudiantes
+Santiago Esteban Merlos Espinosa                     2
+
+3. DESEMPEÑO PROMEDIO DE ESTUDIANTES POR PROFESOR
+--------------------------------------------------------------------------------
+         nombres       apellidos  promedio_estudiantes  cantidad_calificaciones
+Santiago Esteban Merlos Espinosa                   4.5                        8
+
+4. PROFESORES CON DATOS INCOMPLETOS
+--------------------------------------------------------------------------------
+✅ Todos los profesores tienen datos completos
+

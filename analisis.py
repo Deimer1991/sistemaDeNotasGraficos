@@ -11,18 +11,24 @@ import numpy as np
 # 1. ANÁLISIS DE DESEMPEÑO ACADÉMICO
 # ============================================================================
 
-def promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes):
+def promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes, df_programas=None):
     """Calcula el promedio general de cada estudiante."""
     # Merge para obtener estudiante_id
     cal_with_est = df_calificaciones.merge(df_matriculas[['id', 'estudiante_id']], left_on='matricula_id', right_on='id')
-    cal_with_est = cal_with_est.merge(df_estudiantes[['id', 'nombres', 'apellidos']], left_on='estudiante_id', right_on='id', suffixes=('_mat', '_est'))
+    cal_with_est = cal_with_est.merge(df_estudiantes[['id', 'nombres', 'apellidos', 'programa_id']], left_on='estudiante_id', right_on='id', suffixes=('_mat', '_est'))
     
     # Agrupar por estudiante y calcular promedio
     promedio = cal_with_est.groupby('estudiante_id')[['nota']].mean().rename(columns={'nota': 'promedio'})
-    promedio = promedio.merge(df_estudiantes[['id', 'nombres', 'apellidos']], left_index=True, right_on='id')
+    promedio = promedio.merge(df_estudiantes[['id', 'nombres', 'apellidos', 'programa_id']], left_index=True, right_on='id')
     promedio = promedio.sort_values('promedio', ascending=False)
     
-    return promedio[['nombres', 'apellidos', 'promedio']]
+    cols = ['nombres', 'apellidos', 'promedio']
+    if df_programas is not None:
+        promedio = promedio.merge(df_programas[['id', 'nombre']], left_on='programa_id', right_on='id', how='left')
+        promedio = promedio.rename(columns={'nombre': 'programa'})
+        cols.append('programa')
+    
+    return promedio[cols]
 
 
 def promedio_por_tipo_evaluacion(df_calificaciones):
@@ -54,27 +60,23 @@ def promedio_por_grupo(df_calificaciones, df_matriculas, df_grupos, df_materias)
     return promedio.sort_values('promedio', ascending=False)
 
 
-def ranking_estudiantes(df_calificaciones, df_matriculas, df_estudiantes):
+def ranking_estudiantes(df_calificaciones, df_matriculas, df_estudiantes, df_programas=None, top=10):
     """Genera ranking de mejores y peores estudiantes."""
-    promedio = promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes)
+    promedio = promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes, df_programas)
     
     ranking = {
-        'mejores': promedio.head(5),
-        'peores': promedio.tail(5)
+        'mejores': promedio.head(top),
+        'peores': promedio.tail(top).sort_values('promedio', ascending=True)
     }
     return ranking
 
 
-def estudiantes_bajo_desempeño(df_calificaciones, df_matriculas, df_estudiantes, umbral=3.0):
+def estudiantes_bajo_desempeño(df_calificaciones, df_matriculas, df_estudiantes, umbral=3.0, df_programas=None):
     """Identifica estudiantes con desempeño bajo (promedio < umbral)."""
-    promedio = promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes)
+    promedio = promedio_por_estudiante(df_calificaciones, df_matriculas, df_estudiantes, df_programas)
     bajo_desempeño = promedio[promedio['promedio'] < umbral]
     return bajo_desempeño.sort_values('promedio')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/analisis
 # ============================================================================
 # 2. ANÁLISIS DE DISTRIBUCIÓN
 # ============================================================================
@@ -178,16 +180,46 @@ def profesores_datos_incompletos(df_profesores):
 def resumen_estadistico(datos):
     """Genera un resumen estadístico general."""
     resumen = {
-        'total_estudiantes': len(datos['estudiantes']),
-        'total_profesores': len(datos['profesores']),
-        'total_programas': len(datos['programas_academicos']),
-        'total_materias': len(datos['materias']),
-        'total_grupos': len(datos['grupos']),
-        'total_matriculas': len(datos['matriculas']),
-        'total_calificaciones': len(datos['calificaciones'])
+        'total_estudiantes': len(datos['estudiantes'][datos['estudiantes']['estado'] == 'ACTIVO']),
+        'total_profesores': len(datos['profesores'][datos['profesores']['estado'] == 'ACTIVO']),
+        'total_administrativos': len(datos['administrativos'][datos['administrativos']['estado'] == 'ACTIVO']),
+        'total_programas': len(datos['programas_academicos'][datos['programas_academicos']['estado'] == 'ACTIVO']),
+        'total_materias': len(datos['materias'][datos['materias']['estado'] == 'ACTIVO']),
+        'total_grupos': len(datos['grupos'][datos['grupos']['estado'] == 'ACTIVO']),
     }
-<<<<<<< HEAD
+    
     return pd.Series(resumen)
-=======
-    return pd.Series(resumen)
->>>>>>> origin/analisis
+
+
+def promedio_por_programa(df_calificaciones, df_matriculas, df_estudiantes, df_programas):
+    """Calcula el promedio de notas por programa académico."""
+    cal_with_est = df_calificaciones.merge(df_matriculas[['id', 'estudiante_id']], left_on='matricula_id', right_on='id')
+    cal_with_est = cal_with_est.merge(df_estudiantes[['id', 'programa_id']], left_on='estudiante_id', right_on='id', suffixes=('_cal', '_est'))
+    cal_with_est = cal_with_est.merge(df_programas[['id', 'nombre']], left_on='programa_id', right_on='id', suffixes=('_est', '_prog'))
+
+    promedio = cal_with_est.groupby('nombre')[['nota']].agg(['mean', 'count']).round(2)
+    promedio.columns = ['promedio', 'cantidad_calificaciones']
+    return promedio.sort_values('promedio', ascending=False).reset_index()
+
+
+def matriculados_por_ano(df_matriculas):
+    """Cuenta matrículas agrupadas por año."""
+    df = df_matriculas.copy()
+    df['ano'] = pd.to_datetime(df['fecha_matricula']).dt.year
+    matriculados = df.groupby('ano').size().reset_index(name='cantidad_matriculados')
+    return matriculados.sort_values('ano')
+
+
+def filtrar_por_programa(programa_id, datos):
+    """Filtra los DataFrames de estudiantes, matrículas y calificaciones por programa."""
+    if programa_id is None:
+        return datos
+    est_ids = datos['estudiantes'][datos['estudiantes']['programa_id'] == programa_id]['id']
+    mat_ids = datos['matriculas'][datos['matriculas']['estudiante_id'].isin(est_ids)]['id']
+    d = datos.copy()
+    d['estudiantes'] = datos['estudiantes'][datos['estudiantes']['id'].isin(est_ids)]
+    d['matriculas'] = datos['matriculas'][datos['matriculas']['id'].isin(mat_ids)]
+    d['calificaciones'] = datos['calificaciones'][datos['calificaciones']['matricula_id'].isin(mat_ids)]
+    return d
+
+

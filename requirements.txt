@@ -3,3 +3,13 @@ pandas==3.0.2
 python-dateutil==2.9.0.post0
 six==1.17.0
 tzdata==2026.1
+psycopg2-binary==2.9.10
+sqlalchemy==2.0.36
+
+# Opcionales para gráficos
+matplotlib==3.10.0
+seaborn==0.13.2
+
+# API
+fastapi==0.115.6
+uvicorn==0.34.0

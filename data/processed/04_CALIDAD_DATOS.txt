@@ -1,0 +1,68 @@
+================================================================================
+  REPORTE DE CALIDAD DE DATOS
+================================================================================
+
+
+======================================================================
+ANÁLISIS DE CALIDAD - ESTUDIANTES
+======================================================================
+
+ VALORES FALTANTES:
+  - token_registro: 3 (100.0%)
+  - token_recuperacion: 3 (100.0%)
+  - expiracion_token_recuperacion: 3 (100.0%)
+  - foto: 3 (100.0%)
+
+ EMAILS INVÁLIDOS: 0
+
+  ESTUDIANTES NO ACTIVOS: 0
+
+ TOTAL ESTUDIANTES: 3
+
+======================================================================
+ANÁLISIS DE CALIDAD - PROFESORES
+======================================================================
+
+ VALORES FALTANTES:
+  - token_registro: 1 (100.0%)
+  - token_recuperacion: 1 (100.0%)
+  - expiracion_token_recuperacion: 1 (100.0%)
+  - foto: 1 (100.0%)
+
+ PROFESORES SIN EMAIL VÁLIDO: 0
+
+📱 PROFESORES SIN CELULAR VÁLIDO: 0
+
+  PROFESORES INACTIVOS: 0
+
+ TOTAL PROFESORES: 1
+
+======================================================================
+ANÁLISIS DE CALIDAD - GRUPOS
+======================================================================
+
+  GRUPOS CON MATERIA INVÁLIDA: 0
+
+  GRUPOS CON PROFESOR INVÁLIDO: 0
+
+ TOTAL GRUPOS: 2
+
+======================================================================
+ANÁLISIS DE CALIDAD - MATRÍCULAS
+======================================================================
+
+  MATRÍCULAS CON GRUPO INVÁLIDO: 0
+
+  MATRÍCULAS CON ESTUDIANTE INVÁLIDO: 0
+
+ TOTAL MATRÍCULAS: 2
+
+======================================================================
+ANÁLISIS DE CALIDAD - CALIFICACIONES
+======================================================================
+
+  CALIFICACIONES CON MATRÍCULA INVÁLIDA: 0
+
+ NOTAS FUERA DE RANGO (0-5): 0
+
+ TOTAL CALIFICACIONES: 8

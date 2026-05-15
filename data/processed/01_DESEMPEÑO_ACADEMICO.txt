@@ -1,0 +1,46 @@
+================================================================================
+  REPORTE DE DESEMPEÑO ACADÉMICO
+================================================================================
+
+1. PROMEDIO POR ESTUDIANTE (Top 10)
+--------------------------------------------------------------------------------
+      nombres     apellidos  promedio
+Camilo Andres PErez castaño       4.5
+
+2. PROMEDIO POR TIPO DE EVALUACIÓN
+--------------------------------------------------------------------------------
+              promedio  cantidad  desviacion_std
+tipo                                            
+EXAMEN_FINAL      4.25         2            1.06
+PARCIAL_1         5.00         2            0.00
+PARCIAL_2         4.25         2            0.35
+TRABAJO           4.50         2            0.71
+
+3. PROMEDIO POR MATERIA
+--------------------------------------------------------------------------------
+            promedio  cantidad_calificaciones
+nombre                                       
+Frontend 1      4.75                        4
+backend 1       4.25                        4
+
+4. PROMEDIO POR GRUPO
+--------------------------------------------------------------------------------
+                   promedio  cantidad_calificaciones
+nombre   semestre                                   
+GrupoDos 2026-1        4.75                        4
+GrupoUno 2026-1        4.25                        4
+
+5. RANKING - MEJORES ESTUDIANTES
+--------------------------------------------------------------------------------
+      nombres     apellidos  promedio
+Camilo Andres PErez castaño       4.5
+
+6. RANKING - PEORES ESTUDIANTES
+--------------------------------------------------------------------------------
+      nombres     apellidos  promedio
+Camilo Andres PErez castaño       4.5
+
+7. ESTUDIANTES CON BAJO DESEMPEÑO (promedio < 3.0)
+--------------------------------------------------------------------------------
+✅ No hay estudiantes con bajo desempeño
+

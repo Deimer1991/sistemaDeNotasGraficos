@@ -261,8 +261,3 @@ def generar_todos_reportes(datos):
     print("\n" + "█"*80)
     print("█ TODOS LOS REPORTES HAN SIDO GENERADOS EXITOSAMENTE".ljust(79) + "█")
     print("█"*80)
-<<<<<<<<< Temporary merge branch 1
-    print(f"\n📁 Ubicación: {obtener_ruta_processed()}\n")
-=========
-    print(f"\n📁 Ubicación: {obtener_ruta_processed()}\n")
->>>>>>>>> Temporary merge branch 2
