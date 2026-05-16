@@ -49,7 +49,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-_cors_origins = os.getenv("CORS_ORIGINS", " https://sistema-notas-frontend.onrender.com,http://localhost:5173,http://localhost:5174,http://localhost:5175")#.split(",")
+_cors_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "https://proyectointegradorfrontend.onrender.com,http://localhost:5173,http://localhost:5174,http://localhost:5175").split(",")]
 
 app.add_middleware(
     CORSMiddleware,
