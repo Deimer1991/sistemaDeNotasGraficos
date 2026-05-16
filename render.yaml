@@ -2,7 +2,7 @@ services:
   - type: web
     name: sistema-notas-python
     runtime: python
-    repo: https://github.com/tu-usuario/sistema-notas-python
+    repo: https://github.com/Deimer1991/sistemaDeNotasGraficos
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main_api:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -13,4 +13,4 @@ services:
       - key: DB_PASSWORD
         sync: false
       - key: CORS_ORIGINS
-        value: https://sistema-notas-frontend.onrender.com,http://localhost:5173,http://localhost:5174,http://localhost:5175
+        value: https://proyectointegradorfrontend.onrender.com,http://localhost:5173,http://localhost:5174,http://localhost:5175
