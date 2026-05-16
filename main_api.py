@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 from fastapi import FastAPI, Query
@@ -48,9 +49,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+_cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:5174,http://localhost:5175").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5175", "http://localhost:5173", "http://localhost:5174"],
+    allow_origins=_cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

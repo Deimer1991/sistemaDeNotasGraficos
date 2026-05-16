@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: sistema-notas-python
+    runtime: python
+    repo: https://github.com/tu-usuario/sistema-notas-python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main_api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DB_URL
+        value: jdbc:postgresql://db.prisma.io:5432/postgres?sslmode=require
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: CORS_ORIGINS
+        value: https://sistema-notas-frontend.onrender.com,http://localhost:5173,http://localhost:5174,http://localhost:5175
