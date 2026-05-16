@@ -5,7 +5,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from carga import cargar_todos_datos_db
+from carga import cargar_todos_datos_db, cargar_todos_datos as cargar_todos_datos_archivos
 from analisis import (
     resumen_estadistico,
     promedio_por_estudiante,
@@ -27,7 +27,8 @@ from analisis import (
     filtrar_por_programa,
 )
 
-datos = {}
+_KEYS_DATOS = ["estudiantes", "profesores", "administrativos", "programas_academicos", "materias", "grupos", "matriculas", "calificaciones"]
+datos = {k: pd.DataFrame() for k in _KEYS_DATOS}
 
 
 @asynccontextmanager
@@ -38,7 +39,14 @@ async def lifespan(app: FastAPI):
         datos = cargar_todos_datos_db()
         print(f"Datos cargados: {len(datos['estudiantes'])} estudiantes, {len(datos['profesores'])} profesores, {len(datos['administrativos'])} administrativos")
     except Exception as e:
-        print(f"Error cargando datos: {e}")
+        print(f"Error cargando datos desde DB: {e}")
+        print("Fallback: cargando desde archivos locales...")
+        try:
+            datos = cargar_todos_datos_archivos()
+            print(f"Datos cargados desde archivos: {len(datos['estudiantes'])} estudiantes")
+        except Exception as e2:
+            print(f"Error cargando desde archivos: {e2}")
+            datos = {k: pd.DataFrame() for k in _KEYS_DATOS}
     yield
 
 
