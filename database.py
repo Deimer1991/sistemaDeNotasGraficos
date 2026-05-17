@@ -56,7 +56,7 @@ def obtener_engine():
         query={"sslmode": sslmode},
     )
 
-    return create_engine(url, pool_pre_ping=True)
+    return create_engine(url, pool_size=1, max_overflow=0, pool_pre_ping=True)
 
 
 def ejecutar_query(query, engine=None):
