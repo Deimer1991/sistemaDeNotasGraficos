@@ -40,6 +40,7 @@ def cargar_todos_datos():
     datos = {
         'estudiantes': cargar_estudiantes(),
         'profesores': cargar_profesores(),
+        'administrativos': pd.DataFrame(),
         'programas_academicos': cargar_programas_academicos(),
         'materias': cargar_materias(),
         'grupos': cargar_grupos(),
@@ -140,7 +141,7 @@ def cargar_administrativos_db(engine=None):
         SELECT u.id, u.nombres, u.apellidos, u.correo, u.estado,
                a.titulo AS titulo_profesional, a.especializacion, a.foto
         FROM usuarios u
-        JOIN administrativos a ON u.id = a.id_usuario
+        JOIN administradores a ON u.id = a.id_usuario
         WHERE u.rol IN ('ADMINISTRADOR', 'SUPER_ADMIN')
     """
     return _query_df(query, engine)
