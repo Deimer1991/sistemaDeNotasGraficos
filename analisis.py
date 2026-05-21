@@ -178,14 +178,19 @@ def profesores_datos_incompletos(df_profesores):
 # ============================================================================
 
 def resumen_estadistico(datos):
-    """Genera un resumen estadístico general."""
+    def _activos(key):
+        df = datos.get(key, pd.DataFrame())
+        if df.empty or "estado" not in df.columns:
+            return 0
+        return len(df[df["estado"] == "ACTIVO"])
+
     resumen = {
-        'total_estudiantes': len(datos['estudiantes'][datos['estudiantes']['estado'] == 'ACTIVO']),
-        'total_profesores': len(datos['profesores'][datos['profesores']['estado'] == 'ACTIVO']),
-        'total_administrativos': len(datos['administrativos'][datos['administrativos']['estado'] == 'ACTIVO']),
-        'total_programas': len(datos['programas_academicos'][datos['programas_academicos']['estado'] == 'ACTIVO']),
-        'total_materias': len(datos['materias'][datos['materias']['estado'] == 'ACTIVO']),
-        'total_grupos': len(datos['grupos'][datos['grupos']['estado'] == 'ACTIVO']),
+        'total_estudiantes': _activos('estudiantes'),
+        'total_profesores': _activos('profesores'),
+        'total_administrativos': _activos('administrativos'),
+        'total_programas': _activos('programas_academicos'),
+        'total_materias': _activos('materias'),
+        'total_grupos': _activos('grupos'),
     }
     
     return pd.Series(resumen)
