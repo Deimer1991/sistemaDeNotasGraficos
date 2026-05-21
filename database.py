@@ -30,7 +30,13 @@ def obtener_engine():
     password = os.getenv("DB_PASSWORD")
 
     if not jdbc_url:
-        raise ValueError("No se encontró DB_URL en el entorno ni en .env")
+        raise ValueError(
+            "No se encontró DB_URL en el entorno ni en .env. "
+            "Disponibles: DB_USERNAME="
+            + ("✓" if username else "✗")
+            + " DB_PASSWORD="
+            + ("✓" if password else "✗")
+        )
 
     m = re.match(r"jdbc:postgresql://([^:/]+):(\d+)/([^?]+)\??(.*)", jdbc_url)
     if not m:

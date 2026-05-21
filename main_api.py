@@ -34,6 +34,13 @@ datos = {k: pd.DataFrame() for k in _KEYS_DATOS}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global datos
+    import os as _os
+    print("=== ENV DEBUG ===")
+    for k in ["DB_URL", "DB_USERNAME", "DB_PASSWORD", "CORS_ORIGINS"]:
+        v = _os.environ.get(k, "<NOT SET>")
+        masked = v[:20] + "..." if k in ("DB_URL", "DB_PASSWORD") and len(v) > 20 else v
+        print(f"  {k} = {masked}")
+    print("=================")
     print("Cargando datos desde PostgreSQL...")
     try:
         datos = cargar_todos_datos_db()
