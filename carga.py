@@ -139,9 +139,8 @@ def cargar_administrativos_db(engine=None):
         engine = obtener_engine()
     query = """
         SELECT u.id, u.nombres, u.apellidos, u.correo, u.estado,
-               a.titulo AS titulo_profesional, a.especializacion, a.foto
+               NULL AS titulo_profesional, NULL AS especializacion, NULL AS foto
         FROM usuarios u
-        JOIN administradores a ON u.id = a.id_usuario
         WHERE u.rol IN ('ADMINISTRADOR', 'SUPER_ADMIN')
     """
     return _query_df(query, engine)
