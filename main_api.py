@@ -44,13 +44,13 @@ async def lifespan(app: FastAPI):
     print("Cargando datos desde PostgreSQL...")
     try:
         datos = cargar_todos_datos_db()
-        print(f"Datos cargados: {len(datos['estudiantes'])} estudiantes, {len(datos['profesores'])} profesores, {len(datos['administrativos'])} administrativos")
+        print(f"DATOS REALES DESDE DB: {len(datos['estudiantes'])} estudiantes, {len(datos['profesores'])} profesores, {len(datos['administrativos'])} administrativos")
     except Exception as e:
         print(f"Error cargando datos desde DB: {e}")
-        print("Fallback: cargando desde archivos locales...")
+        print("Fallback: cargando desde archivos locales (MOCK)...")
         try:
             datos = cargar_todos_datos_archivos()
-            print(f"Datos cargados desde archivos: {len(datos['estudiantes'])} estudiantes")
+            print(f"⚠️  DATOS MOCK (no reales): {len(datos['estudiantes'])} estudiantes")
         except Exception as e2:
             print(f"Error cargando desde archivos: {e2}")
             datos = {k: pd.DataFrame() for k in _KEYS_DATOS}

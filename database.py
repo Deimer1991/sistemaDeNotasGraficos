@@ -29,23 +29,23 @@ def obtener_engine():
     username = os.getenv("DB_USERNAME")
     password = os.getenv("DB_PASSWORD")
 
-    if not jdbc_url:
-        raise ValueError(
-            "No se encontró DB_URL en el entorno ni en .env. "
-            "Disponibles: DB_USERNAME="
-            + ("✓" if username else "✗")
-            + " DB_PASSWORD="
-            + ("✓" if password else "✗")
-        )
-
-    m = re.match(r"jdbc:postgresql://([^:/]+):(\d+)/([^?]+)\??(.*)", jdbc_url)
-    if not m:
-        raise ValueError(f"No se pudo parsear DB_URL: {jdbc_url}")
-
-    host = m.group(1)
-    port = m.group(2)
-    dbname = m.group(3)
-    params = m.group(4)
+    if jdbc_url:
+        m = re.match(r"jdbc:postgresql://([^:/]+):(\d+)/([^?]+)\??(.*)", jdbc_url)
+        if not m:
+            raise ValueError(f"No se pudo parsear DB_URL: {jdbc_url}")
+        host = m.group(1)
+        port = m.group(2)
+        dbname = m.group(3)
+        params = m.group(4)
+    else:
+        host = os.getenv("DB_HOST", "db.prisma.io")
+        port = os.getenv("DB_PORT", "5432")
+        dbname = os.getenv("DB_NAME", "postgres")
+        params = ""
+        if not username or not password:
+            print("WARNING: DB_URL, DB_USERNAME y DB_PASSWORD no están configurados")
+            print("Usando datos de archivos locales (mock)")
+            raise ValueError("DB_URL no configurada")
 
     sslmode = "require"
     for param in params.split("&"):
